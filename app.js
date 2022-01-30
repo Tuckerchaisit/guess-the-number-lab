@@ -5,6 +5,20 @@ const game = {
   secretNum: null,
   prevGuesses: [],
   guessInput: 0,
+  render : function(){
+    let guessesCount = this.prevGuesses.length;
+    if(this.prevGuesses[guessesCount - 1] === this.secretNum){
+      alert(`Congrats! You guessed the number in ${guessesCount} !`);
+    }else{
+      if(this.prevGuesses[guessesCount - 1] > this.secretNum){
+        alert(`Your guess is too high Previous guesses: ${this.prevGuesses.join()}`);
+      }else{
+        if(this.prevGuesses[guessesCount - 1] < this.secretNum){
+          alert(`Your guess is too low Previous guesses: ${this.prevGuesses.join()}`);
+      }
+    }
+  }
+  },
   getGuesses: function(){
     //let guessInput = 0; //initialized guess Input
     guessInput = parseInt( //executed the prompts for player's input
@@ -20,16 +34,21 @@ const game = {
      //return the input from user when exit the loop
   },
   play: function() {
+
+      //generate random secret number
     this.secretNum = Math.floor(Math.random() * 
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
 
-    do{
+      //do...while loop condition to check if the getGuesses has return the number that match secretNum ,if not then continue calling getGuesses and put the array
+    while(this.prevGuesses[this.prevGuesses.length - 1] !== this.secretNum){
       this.prevGuesses.push(this.getGuesses());
-    } while(this.prevGuesses[this.prevGuesses.length - 1] !== this.secretNum);  
+      this.render();
+    }
+    
+    //call render
+    //this.render();
   
-  return this.prevGuesses;
-    
-    
+  return this.secretNum;
   }
 }
 //console.log(game.getGuesses());
