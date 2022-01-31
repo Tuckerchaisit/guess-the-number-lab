@@ -11,10 +11,12 @@ const game = {
       alert(`Congrats! You guessed the number in ${guessesCount} !`);
     }else{
       if(this.prevGuesses[guessesCount - 1] > this.secretNum){
-        alert(`Your guess is too high Previous guesses: ${this.prevGuesses.join()}`);
+        this.biggestNum = this.prevGuesses[guessesCount - 1];
+        alert(`Your guess is too high Previous guesses: ${this.prevGuesses.join(', ')}`);
       }else{
         if(this.prevGuesses[guessesCount - 1] < this.secretNum){
-          alert(`Your guess is too low Previous guesses: ${this.prevGuesses.join()}`);
+          this.smallestNum = this.prevGuesses[guessesCount - 1];
+          alert(`Your guess is too low Previous guesses: ${this.prevGuesses.join(', ')}`);
       }
     }
   }
@@ -51,11 +53,13 @@ const game = {
   return this.secretNum;
   }
 }
-//console.log(game.getGuesses());
-console.log(game.play());
+game.play();
 /**
  * 1. Add a prevGuesses property to the game object initialized to an empty array----DONE
  * 2. Add getGuess method to game that prompts the player to enter a guess with a message formatted as: Enter a guess between [smallestNum] and [biggestNum]. ----DONE
  * 3.Ensure getGuess is a number, between smallestNum and biggestNum.----DONE
- * 4.From within the play method, invoke the getGuess method from inside a loop, and add the new guess to the prevGuesses array.
+ * 4.From within the play method, invoke the getGuess method from inside a loop, and add the new guess to the prevGuesses array.----DONE
+ * 5. render that output the outcome of the guesses.----DONE
+ * BONUS: If the player enters a number greater than the secretNum make it the new biggestNum, so that the player can't enter a number greater than it. If the player enters a number that is less than the secretNum make it the new smallestNum---DONE
+ * MORE BONUS: When play is run, immediately prompt the player to enter the smallest and biggest numbers instead of pre-setting values.
  */
