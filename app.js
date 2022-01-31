@@ -1,7 +1,7 @@
 const game = {
   title: 'Guess the Number!',
-  biggestNum: 10,
-  smallestNum: 1,
+  biggestNum: null,
+  smallestNum: null,
   secretNum: null,
   prevGuesses: [],
   guessInput: 0,
@@ -22,35 +22,42 @@ const game = {
   }
   },
   getGuesses: function(){
+
     //let guessInput = 0; //initialized guess Input
     guessInput = parseInt( //executed the prompts for player's input
       prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`)
     );
     //if the guess isnt a number or outside the range, then keep calling getGuesses
-    while(isNaN(guessInput)|| guessInput<this.smallest|| guessInput>this.biggestNum){
+    while(isNaN(guessInput)|| guessInput<this.smallestNum|| guessInput>this.biggestNum){
       //keep executing the prompts for player's input until the number does not meet the while loop condition, then exit the loop
       guessInput = parseInt( 
         prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`)
       );
     }return guessInput;
-     //return the input from user when exit the loop
+     //return the input from user when exit the loop s s
   },
   play: function() {
+    //prompt the user to input biggest and smallest number
+    let biggestInput =parseInt(
+    prompt(`Please enter the biggest number`)
+  );
+  this.biggestNum = biggestInput;
+    let smallestInput =parseInt(
+      prompt(`Please enter the smallest number`)
+  ); 
+  this.smallestNum = smallestInput;
 
       //generate random secret number
     this.secretNum = Math.floor(Math.random() * 
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
 
-      //do...while loop condition to check if the getGuesses has return the number that match secretNum ,if not then continue calling getGuesses and put the array
+      //while loop condition to check if the getGuesses has return the number that match secretNum ,if not then continue calling getGuesses and put the array
     while(this.prevGuesses[this.prevGuesses.length - 1] !== this.secretNum){
       this.prevGuesses.push(this.getGuesses());
       this.render();
     }
-    
-    //call render
-    //this.render();
-  
-  return this.secretNum;
+   
+  return 
   }
 }
 game.play();
@@ -61,5 +68,5 @@ game.play();
  * 4.From within the play method, invoke the getGuess method from inside a loop, and add the new guess to the prevGuesses array.----DONE
  * 5. render that output the outcome of the guesses.----DONE
  * BONUS: If the player enters a number greater than the secretNum make it the new biggestNum, so that the player can't enter a number greater than it. If the player enters a number that is less than the secretNum make it the new smallestNum---DONE
- * MORE BONUS: When play is run, immediately prompt the player to enter the smallest and biggest numbers instead of pre-setting values.
+ * MORE BONUS: When play is run, immediately prompt the player to enter the smallest and biggest numbers instead of pre-setting values---DONE.
  */
