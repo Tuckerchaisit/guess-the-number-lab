@@ -5,15 +5,29 @@ const game = {
   secretNum: null,
   prevGuesses: [],
   guessInput: 0,
+  numInput : function(){
+    //prompt the user to input biggest and smallest number
+    let biggestInput =parseInt(
+      prompt(`Please enter the biggest number`)
+    );
+    this.biggestNum = biggestInput;
+      let smallestInput =parseInt(
+        prompt(`Please enter the smallest number`)
+    ); 
+    this.smallestNum = smallestInput;
+  },
   render : function(){
     let guessesCount = this.prevGuesses.length;
+    //if guess the right number then prompt congrats
     if(this.prevGuesses[guessesCount - 1] === this.secretNum){
       alert(`Congrats! You guessed the number in ${guessesCount} !`);
     }else{
+      //if the guess is too high then prompt it's too high and show the value of all the previous guesses
       if(this.prevGuesses[guessesCount - 1] > this.secretNum){
         this.biggestNum = this.prevGuesses[guessesCount - 1];
         alert(`Your guess is too high Previous guesses: ${this.prevGuesses.join(', ')}`);
       }else{
+        //if the guess is too low then prompt it's too low and show the value of all the previous guesses
         if(this.prevGuesses[guessesCount - 1] < this.secretNum){
           this.smallestNum = this.prevGuesses[guessesCount - 1];
           alert(`Your guess is too low Previous guesses: ${this.prevGuesses.join(', ')}`);
@@ -37,15 +51,10 @@ const game = {
      //return the input from user when exit the loop s s
   },
   play: function() {
-    //prompt the user to input biggest and smallest number
-    let biggestInput =parseInt(
-    prompt(`Please enter the biggest number`)
-  );
-  this.biggestNum = biggestInput;
-    let smallestInput =parseInt(
-      prompt(`Please enter the smallest number`)
-  ); 
-  this.smallestNum = smallestInput;
+    this.numInput();
+    while(this.biggestNum<=this.smallestNum){
+      this.numInput();
+    }
 
       //generate random secret number
     this.secretNum = Math.floor(Math.random() * 
